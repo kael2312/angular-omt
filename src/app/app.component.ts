@@ -9,4 +9,5 @@ import * as uuid from 'uuid';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
+  name: string = ''
 }
