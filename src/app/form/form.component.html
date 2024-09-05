@@ -1,0 +1,41 @@
+<label for="name">Name</label>
+<input type="text"  [(ngModel)]="user.name"><br>
+<label for="gender">Gender</label>
+<input type="radio" name="gender" value="male" id="male" [(ngModel)]="user.gender">
+<label for="male">Male</label> 
+<input type="radio" name="gender" value="female" id="female" [(ngModel)]="user.gender">
+<label for="female">Female</label>
+<br>
+<label for="email">Email</label>
+<input type="email"  [(ngModel)]="user.email"><br>
+<label for="phone">Phone</label>
+<input type="number" [(ngModel)]="user.phone"><br>
+<label for="country">Country</label>
+<select name="country" id="country" [(ngModel)]="user.country">
+    <option *ngFor="let country of jsonData" [value]="country.code">{{country.name}}</option>
+</select>
+<br>
+<label for="address" >Address</label>
+<input type="text" [(ngModel)]="user.address"><br>
+
+Skill:
+<div *ngFor="let skill of skills">
+    <input type="checkbox" id="{{skill}}" name="{{skill}}" value="{{skill}}">
+  <label for="{{skill}}"> {{skill}}</label><br>
+</div>
+
+
+<br>
+
+<label for="description">Description</label>
+<input type="text"  [(ngModel)]="user.description"><br>
+<button  (click)="submit()">submit</button>
+<button *ngIf="!check" (click)="updateForm()">update</button>
+
+<h2>User List</h2>
+
+<div *ngFor="let item of users; let i = index">
+    <p>{{item.name}}</p>
+    <button (click)="update(i)">update</button>
+    <button (click)="delete(i)">delete</button>
+</div>
