@@ -1,0 +1,42 @@
+p {
+  font-family: Lato;
+}
+
+form {
+  max-width: 300px;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+div {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.action-buttons {
+  margin-left: auto;
+}
+
+button-btn {
+  margin-left: 5px;
+  font-size: 0.9em; /* Kích thước chữ nhỏ hơn */
+  padding: 4px 8px; /* Kích thước nút nhỏ hơn */
+}
