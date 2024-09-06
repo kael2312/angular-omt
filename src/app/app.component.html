@@ -1,2 +1,69 @@
-<h1>User Form</h1>
-<h2>User List</h2>
+<div style="display: flex">
+    <div style="width: 50%">
+        <h1>User Form</h1>
+        <form (ngSubmit)="upsertUser()">
+            <span>Name</span> <br>
+            <input type="text" name="name" [(ngModel)]="user.name"> <br>
+            <div *ngIf="validateNameUser" style="color: red">Name required</div>
+            <br><br>
+
+            <span>Gender</span> <br>
+            <label for="male">Male</label>
+            <input type="radio" id="male" [(ngModel)]="user.gender" name="gender" value="male">
+            <label for="female">Female</label>
+            <input type="radio" id="female" [(ngModel)]="user.gender" name="gender" value="female">
+            <br><br>
+
+            <span>Email</span> <br>
+            <input type="text" name="email" [(ngModel)]="user.email">
+            <br><br>
+
+            <span>Phone</span> <br>
+            <input type="number" name="phone" [(ngModel)]="user.phone">
+            <br><br>
+
+            <span>Country</span> <br>
+            <select name="country" [(ngModel)]="user.country" id="country">
+                <option *ngFor="let country of countries" [value]="country.code">
+                    {{ country.name }}
+                </option>
+            </select>
+            <br><br>
+
+            <span>Address</span> <br>
+            <input type="text" name="address" [(ngModel)]="user.address">
+            <br><br>
+
+            <span>Skills</span> <br>
+            <div class="container-checkbox">
+                <div *ngFor="let skill of skills" style="margin-right: 10px">
+                    <label for="{{skill}}">{{ skill }}</label>
+                    <input
+                            type="checkbox"
+                            id="{{skill}}"
+                            (change)="onCheckboxChange(skill, $event)"
+                            [checked]="user.skills.includes(skill)"
+                    >
+                </div>
+            </div>
+            <br><br>
+
+            <span>Description</span> <br>
+            <textarea name="description" [(ngModel)]="user.description"></textarea>
+            <br><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div *ngIf="0 !== this.users.length">
+        <h2>User List</h2>
+        <div *ngFor="let user of users">
+            {{ user.name }} -
+            <button (click)="update(user.id)">Update</button>
+            -
+            <button (click)="delete(user.id)">Delete</button>
+        </div>
+    </div>
+</div>
+
+
