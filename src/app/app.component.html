@@ -1,2 +1,47 @@
-<h1>User Form</h1>
-<h2>User List</h2>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" [(ngModel)]="user.name" name="name" required>
+  </div>
+
+  <div>
+    <label>Gender:</label>
+    <div>
+      <label>
+        <input type="radio" [(ngModel)]="user.gender" name="gender" value="Male" required>
+        Male
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="user.gender" name="gender" value="Female" required>
+        Female
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="user.gender" name="gender" value="Other" required>
+        Other
+      </label>
+    </div>
+  </div>
+  
+  <div>
+    <label for="country">Country:</label>
+    <select id="country" [(ngModel)]="user.country" name="country" required>
+      <option value="" disabled>Select country</option>
+      <option value="1">Việt Name</option>
+      <option value="2">Trung Quốc</option>
+      <option value="3">Hàn</option>
+    </select>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
+<h2>User list</h2>
+<ul>
+  <li *ngFor="let user of users; let i = index" class="user-item">
+    {{ user.name }} - {{ user.gender }}
+    <div class="action-buttons">
+      <button (click)="onEdit(i)">Edit</button>
+      <button (click)="onDelete(i)">Delete</button>
+    </div>
+  </li>
+</ul>
