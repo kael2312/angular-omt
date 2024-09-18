@@ -3,6 +3,7 @@ import {UserModel} from "../../models/user.model";
 import {Country} from "../../models/country.model";
 import * as jsonCountries from "../../../assets/countries.json";
 import * as uuid from 'uuid';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-user-form',
@@ -36,20 +37,35 @@ export class UserFormComponent implements OnInit {
     };
     editingUUID: string | null = null;
 
-    onSubmit(): void {
+    onSubmit(form: NgForm): void {
+
+        const skills = this.listSkills
+        .filter((_, i) => this.selectedSkills[i])
+        .join(', ');
+        
+        const userData: UserModel = {
+            id: this.editingUUID ? this.editingUUID : uuid.v4(),
+            name: form.value.name,
+            email: form.value.email,
+            gender: form.value.gender,
+            phone: form.value.phone,
+            country: form.value.country,
+            address: form.value.address,
+            skill: skills,
+            description: form.value.description
+        };
+
+        console.log(form.value);
         if (this.editingUUID !== null) {
             const index = this.userLists.findIndex(user => user.id === this.editingUUID);
             if (index !== -1) {
-                this.userLists[index] = {...this.user, id: this.editingUUID}
+                this.userLists[index] = userData
             }
             this.editingUUID = null;
         } else {
-            const newUser = {
-                ...this.user,
-                id: uuid.v4()
-            };
-            this.userLists.push(newUser);
+            this.userLists.push(userData);
         }
+        console.log(this.userLists);
         this.resetForm();
     }
 
@@ -80,12 +96,6 @@ export class UserFormComponent implements OnInit {
             description: ''
         };
         this.selectedSkills = [];
-    }
-
-    onSkillChange(index: number): void {
-        this.user.skill = this.listSkills
-            .filter((_, i) => this.selectedSkills[i])
-            .join(', ');
     }
 
     protected readonly events = module
