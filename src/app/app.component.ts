@@ -5,9 +5,9 @@ import * as jsonCountries from '../assets/countries.json';
 import * as uuid from 'uuid';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title() {
@@ -23,6 +23,7 @@ export class AppComponent {
 
   selectedSkills: boolean[] = [];
   user: UserModel = {
+    id: '',
     name: '',
     email: '',
     gender: '',
@@ -61,6 +62,7 @@ export class AppComponent {
 
   resetForm() {
     this.user = {
+      id: '',
       name: '',
       email: '',
       gender: '',
