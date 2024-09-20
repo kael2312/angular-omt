@@ -3,6 +3,7 @@ import {UserModel} from "../../models/user.model";
 import {Country} from "../../models/country.model";
 import * as jsonCountries from "../../../assets/countries.json";
 import * as uuid from 'uuid';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-user-form',
@@ -36,21 +37,23 @@ export class UserFormComponent implements OnInit {
     };
     editingUUID: string | null = null;
 
-    onSubmit(): void {
-        if (this.editingUUID !== null) {
-            const index = this.userLists.findIndex(user => user.id === this.editingUUID);
-            if (index !== -1) {
-                this.userLists[index] = {...this.user, id: this.editingUUID}
+    onSubmit(form: NgForm): void {
+        if(form.valid) {
+            if (this.editingUUID !== null) {
+                const index = this.userLists.findIndex(user => user.id === this.editingUUID);
+                if (index !== -1) {
+                    this.userLists[index] = {...this.user, id: this.editingUUID}
+                }
+                this.editingUUID = null;
+            } else {
+                const newUser = {
+                    ...this.user,
+                    id: uuid.v4()
+                };
+                this.userLists.push(newUser);
             }
-            this.editingUUID = null;
-        } else {
-            const newUser = {
-                ...this.user,
-                id: uuid.v4()
-            };
-            this.userLists.push(newUser);
+            this.resetForm();
         }
-        this.resetForm();
     }
 
     deleteUser(uuid: string): void {
@@ -86,6 +89,10 @@ export class UserFormComponent implements OnInit {
         this.user.skill = this.listSkills
             .filter((_, i) => this.selectedSkills[i])
             .join(', ');
+    }
+
+    isAtLeastOneSkillSelected(): boolean {
+        return this.user.skill.trim() != ''
     }
 
     protected readonly events = module
