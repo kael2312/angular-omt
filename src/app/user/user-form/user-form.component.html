@@ -1,58 +1,60 @@
-<form class="container mt-4">
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" [(ngModel)]="user.name" name="name" placeholder="Nhap ten cua ban" class="form-control">
-    </div>
+<form #userForm="ngForm" (ngSubmit)="onSubmit()" class="container mt-4">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" [(ngModel)]="user.name" name="name" class="form-control" required>
+    <div *ngIf="validationErrors.name" class="text-danger">{{ validationErrors.name }}</div>
+  </div>
 
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="user.email" name="email" placeholder="Nhap email cua ban" class="form-control">
-    </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" [(ngModel)]="user.email" name="email" class="form-control" required>
+    <div *ngIf="validationErrors.email" class="text-danger">{{ validationErrors.email }}</div>
+  </div>
 
-    <div class="form-group">
-        <label>Gender</label>
-        <select [(ngModel)]="user.gender" name="gender" class="form-control">
-            <option value="Male">Nam</option>
-            <option value="Female">Nu</option>
-        </select>
-    </div>
+  <div class="form-group">
+    <label>Gender</label>
+    <select [(ngModel)]="user.gender" name="gender" class="form-control" required>
+      <option value="Male">Nam</option>
+      <option value="Female">Nu</option>
+    </select>
+    <div *ngIf="validationErrors.gender" class="text-danger">{{ validationErrors.gender }}</div>
+  </div>
 
-    <div class="form-group">
-        <label>Phone</label>
-        <input type="text" [(ngModel)]="user.phone" name="phone" placeholder="Nhap so dien thoai cua ban"
-               class="form-control">
-    </div>
+  <div class="form-group">
+    <label>Phone</label>
+    <input type="text" [(ngModel)]="user.phone" name="phone" class="form-control">
+    <div *ngIf="validationErrors.phone" class="text-danger">{{ validationErrors.phone }}</div>
+  </div>
 
-    <div class="form-group">
-        <label>Country</label>
-        <select id="country-select" [(ngModel)]="user.country" name="country" class="form-control">
-            <option *ngFor="let country of countries" [value]="country.code">
-                {{ country.name }}
-            </option>
-        </select>
-    </div>
+  <div class="form-group">
+    <label>Country</label>
+    <select [(ngModel)]="user.country" name="country" class="form-control" required>
+      <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
+    </select>
+    <div *ngIf="validationErrors.country" class="text-danger">{{ validationErrors.country }}</div>
+  </div>
 
-    <div class="form-group">
-        <label>Address</label>
-        <input type="text" [(ngModel)]="user.address" name="address" placeholder="Nhap dia chi cua ban"
-               class="form-control">
-    </div>
+  <div class="form-group">
+    <label>Address</label>
+    <input type="text" [(ngModel)]="user.address" name="address" class="form-control">
+    <div *ngIf="validationErrors.address" class="text-danger">{{ validationErrors.address }}</div>
+  </div>
 
-    <div class="form-group">
-        <label>Skills</label>
-        <div *ngFor="let skill of listSkills; let i = index">
-            <input type="checkbox" [(ngModel)]="selectedSkills[i]" (change)="onSkillChange(i)"
-                   name="skill{{i}}"> {{ skill }}
-        </div>
+  <div class="form-group">
+    <label>Skills</label>
+    <div *ngFor="let skill of listSkills; let i = index">
+      <input type="checkbox" [(ngModel)]="selectedSkills[i]" (change)="onSkillChange(i)" name="skill{{i}}"> {{ skill }}
     </div>
+    <div *ngIf="validationErrors.skill" class="text-danger">{{ validationErrors.skill }}</div>
+  </div>
 
-    <div class="form-group">
-        <label>Description</label>
-        <textarea [(ngModel)]="user.description" name="description" placeholder="Mo ta ban than"
-                  class="form-control"></textarea>
-    </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea [(ngModel)]="user.description" name="description" class="form-control"></textarea>
+    <div *ngIf="validationErrors.description" class="text-danger">{{ validationErrors.description }}</div>
+  </div>
 
-    <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <div class="mt-4">
@@ -64,4 +66,3 @@
         </app-user-list>
     </ng-container>
 </div>
-
