@@ -54,8 +54,6 @@ export class UserFormComponent implements OnInit {
             skill: skills,
             description: form.value.description
         };
-
-        console.log(form.value);
         if (this.editingUUID !== null) {
             const index = this.userLists.findIndex(user => user.id === this.editingUUID);
             if (index !== -1) {
@@ -65,7 +63,6 @@ export class UserFormComponent implements OnInit {
         } else {
             this.userLists.push(userData);
         }
-        console.log(this.userLists);
         this.resetForm();
     }
 
