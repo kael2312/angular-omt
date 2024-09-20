@@ -3,6 +3,8 @@ import {UserModel} from "../../models/user.model";
 import {Country} from "../../models/country.model";
 import * as jsonCountries from "../../../assets/countries.json";
 import * as uuid from 'uuid';
+import {UserModule} from "../user.module";
+import {NgForm} from "@angular/forms";
 
 @Component({
     selector: 'app-user-form',
@@ -12,10 +14,12 @@ import * as uuid from 'uuid';
 export class UserFormComponent implements OnInit {
 
     constructor() {
+
     }
 
     ngOnInit(): void {
     }
+
 
     userLists: UserModel[] = [];
     listSkills: string[] = ['C#', 'PHP', 'Angular']
@@ -35,12 +39,20 @@ export class UserFormComponent implements OnInit {
         description: ''
     };
     editingUUID: string | null = null;
+    submitted = false;
+    onSubmit(form: NgForm): void {
+        this.submitted = true;
 
-    onSubmit(): void {
+        if (form.valid) {
+            console.log('Form data:', this.user);
+        } else {
+            console.log('Form không hợp lệ');
+        }
+
         if (this.editingUUID !== null) {
             const index = this.userLists.findIndex(user => user.id === this.editingUUID);
             if (index !== -1) {
-                this.userLists[index] = {...this.user, id: this.editingUUID}
+                this.userLists[index] = { ...this.user, id: this.editingUUID };
             }
             this.editingUUID = null;
         } else {
@@ -50,6 +62,7 @@ export class UserFormComponent implements OnInit {
             };
             this.userLists.push(newUser);
         }
+
         this.resetForm();
     }
 
