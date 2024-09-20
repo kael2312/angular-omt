@@ -6,6 +6,6 @@ export interface UserModel {
     phone: string;
     country: string;
     address: string;
-    skill: string[];
+    skill: string;
     description: string;
 }
