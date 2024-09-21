@@ -10,8 +10,7 @@ import {UserListComponent} from "./user/user-list/user-list.component";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserFormComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +18,7 @@ import {UserListComponent} from "./user/user-list/user-list.component";
     FormsModule,
     UserModule,
     UserListComponent,
+    UserFormComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
