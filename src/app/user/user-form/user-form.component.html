@@ -1,67 +1,151 @@
-<form class="container mt-4">
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" [(ngModel)]="user.name" name="name" placeholder="Nhap ten cua ban" class="form-control">
+<form class="container mt-4" #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <!-- NAME -->
+  <div class="form-group">
+    <label class="text-danger">Name*</label>
+    <input
+      [(ngModel)]="user.name"
+      type="text" placeholder="Nhap ten cua ban"
+      name="name" class="form-control"
+      required
+      [minlength]="minLength"
+      [maxlength]="maxLength"
+      #name="ngModel"
+    >
+    <div *ngIf="name.invalid && name.touched">
+      <small class="text-danger text-bold" *ngIf="name.errors?.['required']">{{ msgRequired }}</small>
+      <small class="text-danger text-bold" *ngIf="name.errors?.['minlength']">{{ msgMinLength }}</small>
+      <small class="text-danger text-bold" *ngIf="name.errors?.['maxlength']">{{ msgMaxLength }}</small>
     </div>
-
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="user.email" name="email" placeholder="Nhap email cua ban" class="form-control">
+  </div>
+  <!-- EMAIL -->
+  <div class="form-group">
+    <label class="text-danger">Email*</label>
+    <input
+      [(ngModel)]="user.email"
+      type="email" placeholder="Nhap email cua ban"
+      name="email" class="form-control"
+      required
+      email
+      #email="ngModel"
+    >
+    <div *ngIf="email.invalid && email.touched">
+      <small class="text-danger text-bold" *ngIf="email.errors?.['required']">{{ msgRequired }}</small>
+      <small class="text-danger text-bold" *ngIf="email.errors?.['email']">{{ msgEmail }}</small>
     </div>
-
-    <div class="form-group">
-        <label>Gender</label>
-        <select [(ngModel)]="user.gender" name="gender" class="form-control">
-            <option value="Male">Nam</option>
-            <option value="Female">Nu</option>
-        </select>
+  </div>
+  <!-- GENDER -->
+  <div class="form-group">
+    <label class="text-danger">Gender*</label>
+    <select
+      [(ngModel)]="user.gender"
+      name="gender" class="form-control"
+      required
+      #gender="ngModel"
+    >
+      <option value="Male">Nam</option>
+      <option value="Female">Nu</option>
+    </select>
+    <div *ngIf="gender.invalid && gender.touched">
+      <small class="text-danger text-bold" *ngIf="gender.errors?.['required']">{{ msgRequired }}</small>
     </div>
-
-    <div class="form-group">
-        <label>Phone</label>
-        <input type="text" [(ngModel)]="user.phone" name="phone" placeholder="Nhap so dien thoai cua ban"
-               class="form-control">
+  </div>
+  <!-- PHONE -->
+  <div class="form-group">
+    <label class="text-danger">Phone*</label>
+    <input
+      [(ngModel)]="user.phone"
+      type="text" placeholder="Nhap so dien thoai cua ban"
+      name="phone" class="form-control"
+      required
+      [pattern]="phonePattern"
+      #phone="ngModel"
+    >
+    <div *ngIf="phone.invalid && phone.touched">
+      <small class="text-danger text-bold" *ngIf="phone.errors?.['required']">{{ msgRequired }}</small>
+      <small class="text-danger text-bold" *ngIf="phone.errors?.['pattern']">{{ msgPhonePattern }}</small>
     </div>
-
-    <div class="form-group">
-        <label>Country</label>
-        <select id="country-select" [(ngModel)]="user.country" name="country" class="form-control">
-            <option *ngFor="let country of countries" [value]="country.code">
-                {{ country.name }}
-            </option>
-        </select>
+  </div>
+  <!-- COUNTRY -->
+  <div class="form-group">
+    <label class="text-danger">Country*</label>
+    <select
+      [(ngModel)]="user.country"
+      name="country"
+      id="country-select" class="form-control"
+      required
+      #country="ngModel"
+    >
+      <option *ngFor="let country of countries" [value]="country.code">
+        {{ country.name }}
+      </option>
+    </select>
+    <div *ngIf="country.invalid && country.touched">
+      <small class="text-danger text-bold" *ngIf="country.errors?.['required']">{{ msgRequired }}</small>
     </div>
-
-    <div class="form-group">
-        <label>Address</label>
-        <input type="text" [(ngModel)]="user.address" name="address" placeholder="Nhap dia chi cua ban"
-               class="form-control">
+  </div>
+  <!-- ADDRESS -->
+  <div class="form-group">
+    <label class="text-danger">Address*</label>
+    <input
+      [(ngModel)]="user.address"
+      type="text" placeholder="Nhap dia chi cua ban"
+      name="address" class="form-control"
+      required
+      [minlength]="minLength"
+      [maxlength]="maxLengthText"
+      #address="ngModel"
+    >
+    <div *ngIf="address.invalid && address.touched">
+      <small class="text-danger text-bold" *ngIf="address.errors?.['required']">{{ msgRequired }}</small>
+      <small class="text-danger text-bold" *ngIf="address.errors?.['minlength']">{{ msgMinLength }}</small>
+      <small class="text-danger text-bold" *ngIf="address.errors?.['maxlength']">{{ msgMaxLengthText }}</small>
     </div>
-
-    <div class="form-group">
-        <label>Skills</label>
-        <div *ngFor="let skill of listSkills; let i = index">
-            <input type="checkbox" [(ngModel)]="selectedSkills[i]" (change)="onSkillChange(i)"
-                   name="skill{{i}}"> {{ skill }}
-        </div>
+  </div>
+  <!-- SKILLS -->
+  <div class="form-group">
+    <label class="text-danger">Skills*</label>
+    <div *ngFor="let skill of listSkills; let i = index">
+      <input
+        [(ngModel)]="selectedSkills[i]"
+        (change)="onSkillChange(i)"
+        type="checkbox" name="skill{{i}}"
+        [required]="true"
+      > {{ skill }}
     </div>
-
-    <div class="form-group">
-        <label>Description</label>
-        <textarea [(ngModel)]="user.description" name="description" placeholder="Mo ta ban than"
-                  class="form-control"></textarea>
+    <div *ngIf="!isAtLeastOneSkillSelected() && isSubmitting">
+      <small class="text-danger text-bold">{{ msgRequired }}</small>
     </div>
+  </div>
+  <!-- DESCRIPTION -->
+  <div class="form-group">
+    <label class="text-danger">Description*</label>
+    <textarea
+      [(ngModel)]="user.description"
+      name="description"
+      placeholder="Mo ta ban than"
+      class="form-control"
+      required
+      [minlength]="minLength"
+      [maxlength]="maxLengthText"
+      #description="ngModel"
+    ></textarea>
+    <div *ngIf="description.invalid && description.touched">
+      <small class="text-danger text-bold" *ngIf="description.errors?.['required']">{{ msgRequired }}</small>
+      <small class="text-danger text-bold" *ngIf="description.errors?.['minlength']">{{ msgMinLength }}</small>
+      <small class="text-danger text-bold" *ngIf="description.errors?.['maxlength']">{{ msgMaxLengthText }}</small>
+    </div>
+  </div>
 
-    <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <div class="mt-4">
-    <ng-container *ngIf="userLists.length > 0">
-        <app-user-list
-                (deleteUserEvent)="deleteUser($event)"
-                (editUserEvent)="editUser($event)"
-                [userLists]="userLists">
-        </app-user-list>
-    </ng-container>
+  <ng-container *ngIf="userLists.length > 0">
+    <app-user-list
+      (deleteUserEvent)="deleteUser($event)"
+      (editUserEvent)="editUser($event)"
+      [userLists]="userLists">
+    </app-user-list>
+  </ng-container>
 </div>
 
