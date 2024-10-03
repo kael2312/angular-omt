@@ -1,0 +1,126 @@
+<h3 style="color: red;font-weight: bold">Teacher Form</h3>
+<form #teacherForm="ngForm" (ngSubmit)="onSubmit()" class="container mt-4">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input
+      type="text"
+      id="name"
+      [(ngModel)]="teacher.name"
+      name="name"
+      class="form-control"
+      required
+      minlength="3"
+      maxlength="18"
+    />
+    <div *ngIf="validationErrors.name" class="text-danger">{{ validationErrors.name }}</div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      [(ngModel)]="teacher.email"
+      name="email"
+      class="form-control"
+      required
+    />
+    <div *ngIf="validationErrors.email" class="text-danger">{{ validationErrors.email }}</div>
+  </div>
+
+  <div class="form-group">
+    <label for="gender">Gender</label>
+    <select id="gender" [(ngModel)]="teacher.gender" name="gender" class="form-control" required>
+      <option value="" disabled>Select gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+    <div *ngIf="validationErrors.gender" class="text-danger">{{ validationErrors.gender }}</div>
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input
+      type="text"
+      id="phone"
+      [(ngModel)]="teacher.phone"
+      name="phone"
+      class="form-control"
+      required
+      pattern="^0\d{9}$"
+    />
+    <div *ngIf="validationErrors.phone" class="text-danger">{{ validationErrors.phone }}</div>
+  </div>
+
+
+  <div class="form-group">
+    <label>Country</label>
+    <select [(ngModel)]="teacher.country" name="country" class="form-control" required>
+      <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
+    </select>
+    <div *ngIf="validationErrors.country" class="text-danger">{{ validationErrors.country }}</div>
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input
+      type="text"
+      id="address"
+      [(ngModel)]="teacher.address"
+      name="address"
+      class="form-control"
+      required
+    />
+    <div *ngIf="validationErrors.address" class="text-danger">{{ validationErrors.address }}</div>
+  </div>
+
+  <div class="form-group">
+    <label>Skills</label>
+    <div *ngFor="let skill of listSkills; let i = index">
+      <input type="checkbox" [(ngModel)]="selectedSkills[i]" (change)="onSkillChange(i)" name="skill{{i}}"> {{ skill }}
+    </div>
+    <div *ngIf="validationErrors.skill" class="text-danger">{{ validationErrors.skill }}</div>
+  </div>
+
+  <div class="form-group">
+    <label for="lever">Trình độ</label>
+    <select id="lever" [(ngModel)]="teacher.lever" name="lever" class="form-control" required>
+      <option value="" disabled>Select lever</option>
+      <option *ngFor="let lever of listLever" [value]="lever">{{ lever }}</option>
+    </select>
+    <div *ngIf="validationErrors.lever" class="text-danger">{{ validationErrors.lever }}</div>
+  </div>
+
+  <div class="form-group">
+    <label for="status">Tình trạng hôn nhân</label>
+    <select id="status" [(ngModel)]="teacher.status" name="status" class="form-control" required>
+      <option value="" disabled>Select status</option>
+      <option *ngFor="let status of listStatus" [value]="status">{{ status }}</option>
+    </select>
+    <div *ngIf="validationErrors.status" class="text-danger">{{ validationErrors.status }}</div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      [(ngModel)]="teacher.description"
+      name="description"
+      class="form-control"
+      required
+    ></textarea>
+    <div *ngIf="validationErrors.description" class="text-danger">{{ validationErrors.description }}</div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="mt-4">
+  <ng-container *ngIf="teacherList.length > 0">
+    <app-teacher-list
+      (deleteTeacherEvent)="deleteTeacher($event)"
+      (editTeacherEvent)="editTeacher($event)"
+      [teacherLists]="teacherList">
+    </app-teacher-list>
+  </ng-container>
+</div>
