@@ -1,3 +1,48 @@
-<app-user-form>
-
-</app-user-form>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#nav-home" type="button" role="tab"
+        aria-controls="nav-home" aria-selected="true">Student</button>
+      <button class="nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab"
+        aria-controls="nav-profile" aria-selected="false">Teacher</button>
+    </div>
+  </nav>
+  
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <app-user-form 
+      [userType]="'Student'"
+      [user]="student"
+      [listSkills]="studentSkills" 
+      [otherSkills]="otherStudentSkills" 
+      [countries]="countries"
+      [editingUUID]="editingStudent"
+      (userListsChange)="onStudentUserListsChange($event)">
+    </app-user-form>
+      <div class="mt-4">
+        <app-user-list
+            (deleteUserEvent)="deleteStudent($event)"
+            (editUserEvent)="editStudent($event)"
+            [userLists]="studentLists">
+        </app-user-list>
+    </div>
+    </div>
+  
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <app-user-form 
+      [userType]="'Teacher'" 
+      [user]="teacher"
+      [listSkills]="teacherSkills" 
+      [otherSkills]="otherTeacherSkills" 
+      [countries]="countries" 
+      [loves]="loves" 
+      [editingUUID]="editingTeacher"
+      (userListsChange)="onTeacherUserListsChange($event)">
+      </app-user-form>
+      <app-user-list
+            (deleteUserEvent)="deleteTeacher($event)"
+            (editUserEvent)="editTeacher($event)"
+            [userLists]="teacherLists">
+        </app-user-list>
+    </div>
+  </div>
+  

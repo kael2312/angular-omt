@@ -7,11 +7,13 @@ import {FormsModule} from "@angular/forms";
 import { UserFormComponent } from './user/user-form/user-form.component';
 import {UserModule} from "./user/user.module";
 import {UserListComponent} from "./user/user-list/user-list.component";
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserFormComponent
+    UserFormComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
