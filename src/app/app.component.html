@@ -1,3 +1,35 @@
-<app-user-form>
+<div class="container mt-5">
+  <!-- Tab navigation -->
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active" id="student-tab"
+        data-bs-toggle="tab" data-bs-target="#student"
+        type="button" role="tab" aria-controls="student" aria-selected="true"
+      >Student</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link" id="teacher-tab"
+        data-bs-toggle="tab" data-bs-target="#teacher"
+        type="button" role="tab" aria-controls="teacher" aria-selected="false"
+      >Teacher</button>
+    </li>
+  </ul>
 
-</app-user-form>
+  <!-- Tab content -->
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="student-tab">
+      <app-user-form>
+        <h3 class="mt-3" title>STUDENT</h3>
+        <app-student-form content></app-student-form>
+      </app-user-form>
+    </div>
+    <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
+      <app-user-form>
+        <h3 class="mt-3" title>TEACHER</h3>
+        <app-teacher-form content></app-teacher-form>
+      </app-user-form>
+    </div>
+  </div>
+</div>
