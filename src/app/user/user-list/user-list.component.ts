@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UserModel} from "../../models/user.model";
+import {StudentModel} from "../../models/student.model";
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
 
 @Component({
@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    @Input() userLists: UserModel[] = [];
+    @Input() userLists: StudentModel[] = [];
     @Output() editUserEvent = new EventEmitter<string>();
     @Output() deleteUserEvent = new EventEmitter<string>();
 
