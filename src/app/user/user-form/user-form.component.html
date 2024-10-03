@@ -1,123 +1,81 @@
-<form class="container mt-4" novalidate (submit)="onSubmit(form.value)" #form="ngForm">
+<form class="container mt-4" novalidate (submit)="onSubmit(form)" #form="ngForm">
+    <h1>{{ userType }}</h1>
+  
     <div class="form-group">
-        <label>Name</label>
-        <input type="text" [(ngModel)]="user.name" #name="ngModel" minlength="3" maxlength="18" name="name" placeholder="Nhap ten cua ban"
-               class="form-control" required>
-                <app-alert 
-                [message]="'Name is required'" 
-                *ngIf="(name.hasError('required') && name.touched)">
-                </app-alert>
-
-                <app-alert 
-                [message]="'Length must be 3-18 characters'" 
-                *ngIf="(name.hasError('minlength') || name.hasError('maxlength'))">
-                </app-alert>
+      <label>Name</label>
+      <input type="text" [(ngModel)]="user.name" #name="ngModel" minlength="3" maxlength="18" name="name" placeholder="Enter your name"
+        class="form-control" required>
+      <app-alert *ngIf="name.hasError('required') && name.touched" [message]="'Name is required'"></app-alert>
+      <app-alert *ngIf="(name.hasError('minlength') || name.hasError('maxlength'))" [message]="'Length must be 3-18 characters'"></app-alert>
     </div>
-
+  
     <div class="form-group">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="user.email" minlength="3" maxlength="18" #email="ngModel" name="email" placeholder="Nhap email cua ban"
-               class="form-control" required>
-               <app-alert 
-                [message]="'Email is required'" 
-                *ngIf="(email.hasError('required') && email.touched)">
-                </app-alert>
-                <app-alert 
-                [message]="'Length must be 3-18 characters'" 
-                *ngIf="(email.hasError('minlength') || email.hasError('maxlength'))">
-                </app-alert>
+      <label>Email</label>
+      <input type="email" [(ngModel)]="user.email" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" #email="ngModel" name="email" placeholder="Enter your email" class="form-control" required>
+      <app-alert *ngIf="email.hasError('required') && email.touched" [message]="'Email is required'"></app-alert>
+      <app-alert *ngIf="email.hasError('minlength') || email.hasError('maxlength') || email.hasError('pattern')" [message]="'Length must be 3-18 characters and format email'"></app-alert>
     </div>
-
+  
     <div class="form-group">
-        <label>Gender</label>
-        <select [(ngModel)]="user.gender" #gender="ngModel" name="gender" class="form-control" required>
-            <option value="" disabled selected>Choose gender</option>
-            <option value="Male">Nam</option>
-            <option value="Female">Nu</option>
-        </select>
-        <app-alert 
-        [message]="'Gender is required'" 
-        *ngIf="(gender.hasError('required') && gender.touched)">
-        </app-alert>
+      <label>Gender</label>
+      <select [(ngModel)]="user.gender" #gender="ngModel" name="gender" class="form-control" required>
+        <option value="" disabled selected>Choose gender</option>
+        <option value="Male">Nam</option>
+        <option value="Female">Nu</option>
+      </select>
+      <app-alert *ngIf="gender.hasError('required') && gender.touched" [message]="'Gender is required'"></app-alert>
     </div>
-
+  
     <div class="form-group">
-        <label>Phone</label>
-        <input type="text" [(ngModel)]="user.phone" #phone="ngModel" minlength="10" maxlength="10" pattern="^0\d{9}$" name="phone" placeholder="Nhap so dien thoai cua ban"
-               class="form-control" required>
-        <app-alert 
-        [message]="'Phone number is required'" 
-        *ngIf="(phone.hasError('required') &&  phone.touched)">
-        </app-alert>
-        <app-alert 
-        [message]="'Phone number must be 10 characters long and start with 0'" 
-        *ngIf="(phone.hasError('pattern') || phone.hasError('minlength') || phone.hasError('maxlength'))">
-        </app-alert>
+      <label>Phone</label>
+      <input type="text" [(ngModel)]="user.phone" #phone="ngModel" name="phone" pattern="^0\d{9}$" placeholder="Enter your phone number"
+        class="form-control" required>
+      <app-alert *ngIf="phone.hasError('required') && phone.touched" [message]="'Phone number is required'"></app-alert>
+      <app-alert *ngIf="phone.hasError('pattern')" [message]="'Phone number must be 10 digits starting with 0'"></app-alert>
     </div>
-
+  
     <div class="form-group">
-        <label>Country</label>
-        <select [(ngModel)]="user.country" #country="ngModel" name="country" class="form-control" required>
-            <option value="" disabled selected>Choose country</option>
-            <option *ngFor="let country of countries" [value]="country.code">
-                {{ country.name }}
-            </option>
-        </select>
-        <app-alert 
-        [message]="'Country is required'" 
-        *ngIf="(country.hasError('required') && country.touched)">
-        </app-alert>    
+      <label>Country</label>
+      <select [(ngModel)]="user.country" #country="ngModel" name="country" class="form-control" required>
+        <option value="" disabled selected>Choose country</option>
+        <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
+      </select>
+      <app-alert *ngIf="country.hasError('required') && country.touched" [message]="'Country is required'"></app-alert>
     </div>
-
+  
     <div class="form-group">
-        <label>Address</label>
-        <input type="text" [(ngModel)]="user.address" #address="ngModel" name="address" placeholder="Nhap dia chi cua ban"
-               class="form-control" required>
-        <app-alert 
-        [message]="'Address is required'" 
-        *ngIf="(address.hasError('required') && address.touched)">
-        </app-alert>
-        <app-alert 
-        [message]="'Length must be 3-18 characters'" 
-        *ngIf="(address.hasError('minlength') || email.hasError('maxlength'))">
-        </app-alert>
+      <label>Address</label>
+      <input type="text" [(ngModel)]="user.address" #address="ngModel" name="address" placeholder="Enter your address" class="form-control" required>
+      <app-alert *ngIf="address.hasError('required') && address.touched" [message]="'Address is required'"></app-alert>
     </div>
-
+  
     <div class="form-group">
-        <label>Skills</label>
-        <div *ngFor="let skill of listSkills; let i = index">
-            <input type="checkbox" [(ngModel)]="selectedSkills[i]" (change)="onSkillChange(i)"
-                   name="skill{{i}}" required> {{ skill }}
-        </div>
-        <app-alert 
-        [message]="'At least one skill is required'"
-        *ngIf="isAtLeastOneSkillSelected()">
-        </app-alert>
+      <label>Skills</label>
+      <div *ngFor="let skill of listSkills; let i = index">
+        <input type="checkbox" [(ngModel)]="selectedSkills[i]" name="skill{{i}}" (change)="onSkillChange(i)" checked="{{user.skill.split(',').includes(skill)}}"> {{ skill }}
+      </div>
+      <app-alert *ngIf="!isAtLeastOneSkillSelected()" [message]="'At least one skill is required'"></app-alert>
     </div>
-
     <div class="form-group">
-        <label>Description</label>
-        <textarea [(ngModel)]="user.description" #description="ngModel" name="description" placeholder="Mo ta ban than"
-                  class="form-control" required></textarea>
-        <app-alert 
-        [message]="'Description is required'" 
-        *ngIf="(description.hasError('required') && description.touched)">
-        </app-alert>
-        <app-alert 
-        [message]="'Length must be 3-18 characters'" 
-        *ngIf="(description.hasError('minlength') || email.hasError('maxlength'))">
-        </app-alert>
+        <label>{{ userType === 'Teacher' ? 'Trình độ chuyên môn' : 'Ngoại ngữ' }}</label>
+        <select [(ngModel)]="user.otherSkill" #country="ngModel" name="otherSkill" class="form-control" required>
+            <option value="" disabled selected>Vui lòng chọn</option>
+            <option *ngFor="let otherSkill of otherSkills" [value]="otherSkill">{{ otherSkill }}</option>
+          </select>
     </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
-</form>
-
-<div class="mt-4">
-    <ng-container *ngIf="userLists.length > 0">
-        <app-user-list
-                (deleteUserEvent)="deleteUser($event)"
-                (editUserEvent)="editUser($event)"
-                [userLists]="userLists">
-        </app-user-list>
-    </ng-container>
-</div>
+    <div class="form-group" *ngIf="userType === 'Teacher'">
+        <label>Tình trạng hôn nhân</label>
+        <select [(ngModel)]="user.love" #country="ngModel" name="love" class="form-control" required>
+            <option value="" disabled selected>Vui lòng chọn</option>
+            <option *ngFor="let love of loves" [value]="love">{{ love }}</option>
+          </select>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea [(ngModel)]="user.description" #description="ngModel" name="description" placeholder="Describe yourself"
+        class="form-control" required></textarea>
+      <app-alert *ngIf="description.hasError('required') && description.touched" [message]="'Description is required'"></app-alert>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  

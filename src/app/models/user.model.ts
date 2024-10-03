@@ -8,4 +8,6 @@ export interface UserModel {
     address: string;
     skill: string;
     description: string;
+    otherSkill: string;
+    love: string;
 }

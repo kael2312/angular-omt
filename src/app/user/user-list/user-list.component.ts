@@ -22,14 +22,12 @@ export class UserListComponent implements OnInit {
     }
 
     @Input() userLists: UserModel[] = [];
-    @Output() editUserEvent = new EventEmitter<string>();
-    @Output() deleteUserEvent = new EventEmitter<string>();
-
+    @Output() deleteUserEvent = new EventEmitter<any>();;
+    @Output() editUserEvent = new EventEmitter<any>();;
 
     getGenderColor(gender: string): string {
         return gender === 'Female' ? 'red' : 'blue';
     }
-
 
     deleteUser(id: string) {
         this.deleteUserEvent.emit(id)
@@ -38,6 +36,4 @@ export class UserListComponent implements OnInit {
     editUser(id: string) {
         this.editUserEvent.emit(id);
     }
-
-
 }
