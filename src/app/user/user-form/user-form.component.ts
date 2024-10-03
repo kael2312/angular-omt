@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserModel} from "../../models/user.model";
 import {Country} from "../../models/country.model";
 import * as jsonCountries from "../../../assets/countries.json";
@@ -20,9 +20,11 @@ export class UserFormComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    @Input() skills: string[] = [];
 
     userLists: UserModel[] = [];
     listSkills: string[] = ['C#', 'PHP', 'Angular']
+    @Output() formSubmit = new EventEmitter<UserModel>();
 
     countries: Country[] = (jsonCountries as any).default as Country[];
 
@@ -40,30 +42,31 @@ export class UserFormComponent implements OnInit {
     };
     editingUUID: string | null = null;
     submitted = false;
+
     onSubmit(form: NgForm): void {
         this.submitted = true;
 
         if (form.valid) {
-            console.log('Form data:', this.user);
+            this.formSubmit.emit(this.user);
+
+            if (this.editingUUID !== null) {
+                const index = this.userLists.findIndex(user => user.id === this.editingUUID);
+                if (index !== -1) {
+                    this.userLists[index] = { ...this.user, id: this.editingUUID };
+                }
+                this.editingUUID = null;
+            } else {
+                const newUser = {
+                    ...this.user,
+                    id: uuid.v4()
+                };
+                this.userLists.push(newUser);
+            }
+
+            this.resetForm();
         } else {
             console.log('Form không hợp lệ');
         }
-
-        if (this.editingUUID !== null) {
-            const index = this.userLists.findIndex(user => user.id === this.editingUUID);
-            if (index !== -1) {
-                this.userLists[index] = { ...this.user, id: this.editingUUID };
-            }
-            this.editingUUID = null;
-        } else {
-            const newUser = {
-                ...this.user,
-                id: uuid.v4()
-            };
-            this.userLists.push(newUser);
-        }
-
-        this.resetForm();
     }
 
     deleteUser(uuid: string): void {
@@ -101,5 +104,4 @@ export class UserFormComponent implements OnInit {
             .join(', ');
     }
 
-    protected readonly events = module
 }
