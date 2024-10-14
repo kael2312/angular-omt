@@ -1,23 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import {UserModel} from "../../models/user.model";
-import {Country} from "../../models/country.model";
-import * as jsonCountries from "../../../assets/countries.json";
+import {Country} from '../../../models/country.model';
+import * as jsonCountries from "../../../../assets/countries.json";
 import * as uuid from 'uuid';
-import {NgForm} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
+import {StudentListComponent} from "../student-list/student-list.component";
+import {NgForOf, NgIf} from "@angular/common";
+import {UserModel} from "../../../models/user.model";
 
 @Component({
-    selector: 'app-user-form',
-    templateUrl: './user-form.component.html',
-    styleUrls: ['./user-form.component.css']
+    standalone: true,
+    selector: 'app-student-form',
+    templateUrl: './student-form.component.html',
+    imports: [
+        FormsModule,
+        StudentListComponent,
+        NgIf,
+        NgForOf
+    ],
+    styleUrls: ['./student-form.component.css']
 })
-export class UserFormComponent implements OnInit {
-    userLists: UserModel[] = [];
-    listSkills: string[] = ['C#', 'PHP', 'Angular']
-
-    countries: Country[] = [];
-
-    selectedSkills: boolean[] = [];
-    user: UserModel = {
+export class StudentFormComponent implements OnInit {
+    public countries: Country[] = [];
+    public userLists: UserModel[] = [];
+    public listSkills: string[] = ['C#', 'PHP', 'Angular']
+    public selectedSkills: boolean[] = [];
+    public user: UserModel = {
         id: '',
         name: '',
         email: '',
@@ -28,18 +35,17 @@ export class UserFormComponent implements OnInit {
         skill: '',
         description: ''
     };
-    editingUUID: string | null = null;
-    submitted: boolean = false;
+    private editingUUID: string | null = null;
+    public submitted: boolean = false;
 
     constructor() {
-
     }
 
     ngOnInit(): void {
         this.countries = (jsonCountries as any).default as Country[]
     }
 
-    onSubmit(form: NgForm): void {
+    public onSubmit(form: NgForm): void {
         this.submitted = true;
         if (!form.valid) {
             return;
@@ -62,12 +68,12 @@ export class UserFormComponent implements OnInit {
         form.reset();
     }
 
-    deleteUser(uuid: string): void {
+    public deleteUser(uuid: string): void {
         this.userLists = this.userLists.filter(user => user.id !== uuid);
         this.resetForm();
     }
 
-    editUser(uuid: string): void {
+    public editUser(uuid: string): void {
         const user = this.userLists.find(user => user.id === uuid);
         if (user) {
             this.user = {...user};
@@ -76,7 +82,7 @@ export class UserFormComponent implements OnInit {
         }
     }
 
-    resetForm(): void {
+    public resetForm(): void {
         this.user = {
             id: '',
             name: '',
@@ -91,12 +97,10 @@ export class UserFormComponent implements OnInit {
         this.selectedSkills = [];
     }
 
-    onSkillChange(index: number): void {
+    public onSkillChange(index: number): void {
         this.user.skill = this.listSkills
             .filter((_, i) => this.selectedSkills[i])
             .join(', ');
     }
-
-    protected readonly events = module
 }
 
