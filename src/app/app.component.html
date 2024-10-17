@@ -1,3 +1,18 @@
-<app-user-form>
-
-</app-user-form>
+<div class="container mt-4">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="student-tab" data-bs-toggle="tab" data-bs-target="#student-form" type="button" role="tab" aria-controls="student-form" aria-selected="true">Học Sinh</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="teacher-tab" data-bs-toggle="tab" data-bs-target="#teacher-form" type="button" role="tab" aria-controls="teacher-form" aria-selected="false">Giáo Viên</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="student-form" role="tabpanel" aria-labelledby="student-tab">
+            <app-user-form [skills]="studentSkills" (formSubmit)="onFormSubmit($event)"></app-user-form>
+        </div>
+        <div class="tab-pane fade" id="teacher-form" role="tabpanel" aria-labelledby="teacher-tab">
+            <app-user-form [skills]="teacherSkills" (formSubmit)="onFormSubmit($event)"></app-user-form>
+        </div>
+    </div>
+</div>
