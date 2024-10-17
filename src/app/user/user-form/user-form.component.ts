@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ContentChild, OnInit} from '@angular/core';
 import {UserModel} from "../../models/user.model";
 import {Country} from "../../models/country.model";
 import * as jsonCountries from "../../../assets/countries.json";
-import * as uuid from 'uuid';
+import {NgForm} from "@angular/forms";
+import * as uuid from "uuid";
 
 @Component({
     selector: 'app-user-form',
@@ -10,19 +11,14 @@ import * as uuid from 'uuid';
     styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent implements OnInit {
-
+    @ContentChild('specialInput') specialInput: any;  // Truy cập nội dung chiếu qua ng-content
     constructor() {
     }
 
     ngOnInit(): void {
     }
 
-    userLists: UserModel[] = [];
-    listSkills: string[] = ['C#', 'PHP', 'Angular']
-
     countries: Country[] = (jsonCountries as any).default as Country[];
-
-    selectedSkills: boolean[] = [];
     user: UserModel = {
         id: '',
         name: '',
@@ -32,11 +28,17 @@ export class UserFormComponent implements OnInit {
         country: '',
         address: '',
         skill: '',
-        description: ''
+        description: '',
+        professional: ''
     };
     editingUUID: string | null = null;
+    selectedTab: string = 'student';  // Mặc định là tab User
+    studentList: UserModel[] = [];
+    userLists: UserModel[] = [];
+    listData: UserModel[] = [];
 
-    onSubmit(): void {
+    onSubmit(formValue: NgForm): void {
+        let value = formValue.value;
         if (this.editingUUID !== null) {
             const index = this.userLists.findIndex(user => user.id === this.editingUUID);
             if (index !== -1) {
@@ -46,47 +48,20 @@ export class UserFormComponent implements OnInit {
         } else {
             const newUser = {
                 ...this.user,
-                id: uuid.v4()
+                id: uuid.v4(),
+                value
             };
             this.userLists.push(newUser);
+            formValue.resetForm();
         }
-        this.resetForm();
+    }
+
+    editUser(uuid: string): void {
     }
 
     deleteUser(uuid: string): void {
         this.userLists = this.userLists.filter(user => user.id !== uuid);
-        this.resetForm();
     }
 
-    editUser(uuid: string): void {
-        const user = this.userLists.find(user => user.id === uuid);
-        if (user) {
-            this.user = {...user};
-            this.editingUUID = uuid;
-            this.selectedSkills = this.listSkills.map(skill => this.user.skill.includes(skill));
-        }
-    }
 
-    resetForm(): void {
-        this.user = {
-            id: '',
-            name: '',
-            email: '',
-            gender: '',
-            phone: '',
-            country: '',
-            address: '',
-            skill: '',
-            description: ''
-        };
-        this.selectedSkills = [];
-    }
-
-    onSkillChange(index: number): void {
-        this.user.skill = this.listSkills
-            .filter((_, i) => this.selectedSkills[i])
-            .join(', ');
-    }
-
-    protected readonly events = module
 }

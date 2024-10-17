@@ -1,0 +1,12 @@
+    <div class="form-group">
+        <label>Trình độ chuyên môn</label>
+        <select id="country-select" [ngModel]="user.professional" #professional="ngModel" required name="professional" class="form-control">
+            <option *ngFor="let profession of professionals" [value]="profession.id">
+                {{ profession.name }}
+            </option>
+        </select>
+        <div class="col alert alert-danger" role="alert"
+             *ngIf="professional.invalid && professional.touched">
+            Professional is required!
+        </div>
+    </div>

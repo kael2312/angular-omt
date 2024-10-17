@@ -1,3 +1,8 @@
-<app-user-form>
-
-</app-user-form>
+<router-outlet></router-outlet>
+<ng-container>
+    <ng-container >
+        <app-loading *ngIf="loading"></app-loading>
+    </ng-container>
+</ng-container>
+<app-user-tab>
+</app-user-tab>

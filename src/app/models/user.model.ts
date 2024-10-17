@@ -8,4 +8,5 @@ export interface UserModel {
     address: string;
     skill: string;
     description: string;
+    professional: string;
 }
