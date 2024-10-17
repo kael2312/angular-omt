@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {UserModel} from "../../../models/user.model";
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {ButtonFormComponent} from "../../../shares/components/button-form/button-form.component";
 
 @Component({
     selector: 'app-teacher-list',
@@ -9,7 +10,8 @@ import {NgForOf, NgIf, NgStyle} from "@angular/common";
     imports: [
         NgForOf,
         NgIf,
-        NgStyle
+        NgStyle,
+        ButtonFormComponent
     ],
     styleUrls: ['./teacher-list.component.css']
 })

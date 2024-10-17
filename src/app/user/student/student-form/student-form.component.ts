@@ -5,7 +5,13 @@ import * as uuid from 'uuid';
 import {FormsModule, NgForm} from "@angular/forms";
 import {StudentListComponent} from "../student-list/student-list.component";
 import {NgForOf, NgIf} from "@angular/common";
-import {UserModel} from "../../../models/user.model";
+import {StudentModel} from "../../../models/user.model";
+import {InputFormComponent} from "../../../shares/components/input-form/input-form.component";
+import {SelectFormComponent} from "../../../shares/components/select-form/select-form.component";
+import {OptionSelectModel} from "../../../models/OptionSelect.model";
+import {CheckboxFormComponent} from "../../../shares/components/checkbox-form/checkbox-form.component";
+import {TextareaFormComponent} from "../../../shares/components/textarea-form/textarea-form.component";
+import {ButtonFormComponent} from "../../../shares/components/button-form/button-form.component";
 
 @Component({
     standalone: true,
@@ -15,16 +21,22 @@ import {UserModel} from "../../../models/user.model";
         FormsModule,
         StudentListComponent,
         NgIf,
-        NgForOf
+        NgForOf,
+        InputFormComponent,
+        SelectFormComponent,
+        CheckboxFormComponent,
+        TextareaFormComponent,
+        ButtonFormComponent,
     ],
     styleUrls: ['./student-form.component.css']
 })
 export class StudentFormComponent implements OnInit {
-    public countries: Country[] = [];
-    public userLists: UserModel[] = [];
-    public listSkills: string[] = ['C#', 'PHP', 'Angular']
-    public selectedSkills: boolean[] = [];
-    public user: UserModel = {
+    public optionsSelectGender: OptionSelectModel[] = [];
+    public optionSelectCountries: OptionSelectModel[] = [];
+    public optionSelectLanguage: OptionSelectModel[] = [];
+    public userLists: StudentModel[] = [];
+    public listSkills: string[] = ['Nhảy', 'Bay', 'Chạy']
+    public user: StudentModel = {
         id: '',
         name: '',
         email: '',
@@ -32,8 +44,9 @@ export class StudentFormComponent implements OnInit {
         phone: '',
         country: '',
         address: '',
-        skill: '',
-        description: ''
+        skills: [],
+        description: '',
+        language: ''
     };
     private editingUUID: string | null = null;
     public submitted: boolean = false;
@@ -42,10 +55,13 @@ export class StudentFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.countries = (jsonCountries as any).default as Country[]
+        this.setValueOptionSelectCountry();
+        this.setValueOptionSelectGender();
+        this.setValueOptionSelectLanguage();
     }
 
     public onSubmit(form: NgForm): void {
+        console.log(this.user, form.valid);
         this.submitted = true;
         if (!form.valid) {
             return;
@@ -78,7 +94,6 @@ export class StudentFormComponent implements OnInit {
         if (user) {
             this.user = {...user};
             this.editingUUID = uuid;
-            this.selectedSkills = this.listSkills.map(skill => this.user.skill.includes(skill));
         }
     }
 
@@ -91,16 +106,64 @@ export class StudentFormComponent implements OnInit {
             phone: '',
             country: '',
             address: '',
-            skill: '',
-            description: ''
+            skills: [],
+            description: '',
+            language: '',
         };
-        this.selectedSkills = [];
     }
 
     public onSkillChange(index: number): void {
-        this.user.skill = this.listSkills
-            .filter((_, i) => this.selectedSkills[i])
-            .join(', ');
+        if (this.user.skills.includes(index)) {
+            const indexInArray = this.user.skills.indexOf(index);
+            if (indexInArray !== -1) {
+                this.user.skills.splice(indexInArray, 1);
+            }
+        } else {
+            this.user.skills.push(index);
+        }
+    }
+
+    private setValueOptionSelectGender(): void {
+        this.optionsSelectGender = [
+            {
+                value: '1',
+                label: 'Nam'
+            },
+            {
+                value: '2',
+                label: 'Nữ'
+            },
+            {
+                value: '3',
+                label: '3D'
+            }
+        ];
+    }
+
+    private setValueOptionSelectLanguage():void {
+        this.optionSelectLanguage = [
+            {
+                value: '1',
+                label: 'ພາສາລາວ'
+            },
+            {
+                value: '2',
+                label: 'Bahasa'
+            },
+            {
+                value: '3',
+                label: 'ภาษาไทย'
+            }
+        ];
+    }
+
+
+    private setValueOptionSelectCountry(): void {
+        const countries: Country[] = (jsonCountries as any).default as Country[]
+        this.optionSelectCountries = countries.map(country => ({
+            value: country.code,
+            label: country.name
+        }));
     }
 }
 

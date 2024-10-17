@@ -20,7 +20,7 @@ import {TeacherFormComponent} from "./user/teacher/teacher-form/teacher-form.com
         NavComponent,
         TabComponent,
         StudentFormComponent,
-        TeacherFormComponent,
+        TeacherFormComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

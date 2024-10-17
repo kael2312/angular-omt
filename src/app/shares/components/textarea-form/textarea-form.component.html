@@ -1,0 +1,15 @@
+<div class="form-group">
+    <label>Description</label>
+    <textarea [(ngModel)]="model" [name]="name" [placeholder]="placeholder"
+              [required]="required"
+              [pattern]="pattern"
+              [minlength]="minlength"
+              [maxlength]="maxlength"
+              class="form-control" #textareaField="ngModel"></textarea>
+    <div *ngIf="textareaField.invalid && (textareaField.touched || submitted)">
+        <small class="text-danger" *ngIf="textareaField.errors?.['required']">{{ requiredMessage }}</small>
+        <small class="text-danger" *ngIf="textareaField.errors?.['pattern']">{{ patternMessage }}</small>
+        <small class="text-danger" *ngIf="textareaField.errors?.['minlength']">{{ minlengthMessage }}</small>
+        <small class="text-danger" *ngIf="textareaField.errors?.['maxlength']">{{ maxlengthMessage }}</small>
+    </div>
+</div>
