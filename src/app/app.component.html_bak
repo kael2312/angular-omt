@@ -1,0 +1,73 @@
+<h1>User Form</h1>
+<form (ngSubmit)="onSubmit()">
+    <div>
+        <label for="name">Name:</label>
+        <input id="name" [(ngModel)]="user.name" name="name" required>
+    </div>
+
+    <div>
+        <label>Gender:</label>
+        <input type="radio" id="male" [(ngModel)]="user.gender" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" [(ngModel)]="user.gender" name="gender" value="female">
+        <label for="female">Female</label>
+    </div>
+
+    <div>
+        <label for="email">Email:</label>
+        <input id="email" [(ngModel)]="user.email" name="email" type="email" required>
+    </div>
+
+    <div>
+        <label for="phone">Phone:</label>
+        <input id="phone" [(ngModel)]="user.phone" name="phone" type="tel" required>
+    </div>
+
+    <div>
+        <label for="country">Country:</label>
+        <select id="country" [(ngModel)]="user.country" name="country" required>
+            <option *ngFor="let country of countries" [value]="country.code">{{country.name}}</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="address">Address:</label>
+        <input id="address" [(ngModel)]="user.address" name="address" required>
+    </div>
+
+    <div>
+        <label>Skills:</label>
+        <div *ngFor="let skill of skills">
+            <input type="checkbox" [id]="skill" [value]="skill" (change)="toggleSkill(skill)"
+                   [checked]="user.skills.includes(skill)">
+            <label [for]="skill">{{skill}}</label>
+        </div>
+    </div>
+
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="user.description" name="description"></textarea>
+    </div>
+
+    <button type="submit">{{isEditing ? 'Update' : 'Submit'}}</button>
+    <button type="button" (click)="resetForm()">Reset</button>
+</form>
+<!--<h2>User List</h2>-->
+<!--<table *ngIf="users.length > 0">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Name</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let user of users">-->
+<!--        <td>{{user.name}}</td>-->
+<!--        <td>-->
+<!--            <button (click)="editUser('1')">Edit</button>-->
+<!--            <button (click)="deleteUser('1')">Delete</button>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+

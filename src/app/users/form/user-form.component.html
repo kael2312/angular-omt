@@ -1,0 +1,61 @@
+<h1>Thêm người dùng</h1>
+<form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input class="form-control" id="name" [(ngModel)]="user.name" name="name" required #nameField="ngModel">
+    </div>
+    <p *ngIf="showError" class="text-danger">
+        Name is required.
+    </p>
+
+    <div class="mb-3">
+        <label class="form-label">Gender:</label>
+        &nbsp;
+        <input type="radio" id="male" [(ngModel)]="user.gender" name="gender" value="male">
+        <label for="male">Male</label>
+        &nbsp;
+        <input type="radio" id="female" [(ngModel)]="user.gender" name="gender" value="female">
+        <label for="female">Female</label>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-control" id="email" [(ngModel)]="user.email" name="email" type="email" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="phone">Phone:</label>
+        <input class="form-control" id="phone" [(ngModel)]="user.phone" name="phone" type="tel" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="country">Country:</label>
+        <select class="form-select" id="country" [(ngModel)]="user.country" name="country" required>
+            <option *ngFor="let country of countries" [value]="country.code">{{country.name}}</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="address">Address:</label>
+        <input class="form-control" id="address" [(ngModel)]="user.address" name="address" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Skills:</label>
+        <div *ngFor="let skill of skills">
+            <input class="form-label" type="checkbox" [id]="skill" [value]="skill" (change)="toggleSkill(skill)"
+                   [checked]="user.skills.includes(skill)">
+            &nbsp;
+            <label [for]="skill">{{skill}}</label>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="description">Description:</label>
+        <textarea class="form-control" id="description" [(ngModel)]="user.description" name="description"></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Lưu</button>
+    &nbsp;
+    <button class="btn btn-secondary" type="button" (click)="resetForm()">Làm mới</button>
+</form>

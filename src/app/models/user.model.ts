@@ -1,4 +1,6 @@
 export interface UserModel{
+    id: number;
+    role: string;
     name: string;
     gender: string;
     email: string;

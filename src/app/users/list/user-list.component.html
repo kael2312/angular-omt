@@ -1,0 +1,24 @@
+<!--<button type="button" class="btn btn-primary" [routerLink]="['/users/new']">Tạo mới</button>-->
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Role</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users; index as i">
+        <th scope="row">{{ i+1}}</th>
+        <td scope="row">{{user.name}}</td>
+        <td scope="row">{{user.role}}</td>
+        <td scope="row">
+            <button (click)="editUser(user)" type="button" class="btn btn-primary">Sửa</button>
+            &nbsp;
+            <button (click)="deleteUser(user.id)" type="button" class="btn btn-danger">Xóa</button>
+        </td>
+    </tr>
+    </tbody>
+</table>

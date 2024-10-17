@@ -4,6 +4,9 @@ import {UserModel} from "./models/user.model";
 import {CountryModel} from "./models/country.model";
 import * as jsonCountries from '../assets/countries.json';
 import * as uuid from 'uuid';
+import {StudentModel} from "./models/student.model";
+import {TeacherModel} from "./models/teacher.model";
+import {RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,63 +14,77 @@ import * as uuid from 'uuid';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  user: UserModel = {
-    name: '',
-    gender: '',
-    email: '',
-    phone: '',
-    country: '',
-    address: '',
-    skills: [],
-    description: ''
-  };
-  users: UserModel[] = [];
-  countries: CountryModel[] = (jsonCountries as any).default as CountryModel[];
-  skills: string[] = ['Angular', 'React', 'Vue', 'Node.js', 'Python', 'Java'];
-  isEditing = false;
-  data:any = [];
+    countries: CountryModel[] = (jsonCountries as any).default as CountryModel[];
+    skills: string[] = ['Angular', 'React', 'Vue', 'Node.js', 'Python', 'Java'];
 
-  onSubmit() {
-    if (this.isEditing) {
-      const index = this.users.findIndex(u => u.name === this.user.name);
-      if (index !== -1) {
-        this.users[index] = { ...this.user };
-      }
-    } else {
-      this.users.push({ ...this.user });
-    }
-    this.resetForm();
-  }
+    users: UserModel[] = [
+        {
+            id: 1,
+            role: 'student',
+            name: 'Nguyễn Văn A',
+            gender: 'male',
+            email: 'a@omt.vn',
+            phone: '0112',
+            country: 'VN',
+            address: 'Hà Nội',
+            skills: ["Angular", "React"],
+            description: 'Mô tả'
+        },
+        {
+            id: 2,
+            role: 'student',
+            name: 'Trần Thị B',
+            gender: 'female',
+            email: 'b@omt.vn',
+            phone: '1023',
+            country: 'YE',
+            address: 'California',
+            skills: ["React"],
+            description: 'Nothing'
+        }
+    ];
 
-  resetForm() {
-    this.user = {
-      name: '',
-      gender: '',
-      email: '',
-      phone: '',
-      country: '',
-      address: '',
-      skills: [],
-      description: ''
+    selectedUser: UserModel = {
+        id: this.users.length + 1,
+        role: 'student',
+        name: '',
+        gender: '',
+        email: '',
+        phone: '',
+        country: '',
+        address: '',
+        skills: [],
+        description: ''
     };
-    this.isEditing = false;
-  }
 
-  editUser(user: UserModel) {
-    this.user = { ...user };
-    this.isEditing = true;
-  }
-
-  deleteUser(name: string) {
-    this.users = this.users.filter(u => u.name !== name);
-  }
-
-  toggleSkill(skill: string) {
-    const index = this.user.skills.indexOf(skill);
-    if (index === -1) {
-      this.user.skills.push(skill);
-    } else {
-      this.user.skills.splice(index, 1);
+    addUser(user: UserModel) {
+        if (user.id >= this.users[this.users.length-1].id) {
+            user.id = this.users.length + 1;
+            this.users.push(user);
+        }
+        else {
+            const index = this.users.findIndex(u => u.id === this.selectedUser.id);
+            this.users[index] = user;
+            this.selectedUser = {
+                id: this.users.length + 1,
+                role: 'student',
+                name: '',
+                gender: '',
+                email: '',
+                phone: '',
+                country: '',
+                address: '',
+                skills: [],
+                description: ''
+            }; // Reset sau khi cập nhật
+        }
     }
-  }
+
+    editUser(user: UserModel) {
+        this.selectedUser = { ...user };
+    }
+    deleteUser(id: number) {
+        console.log(id);
+        this.users = this.users.filter(user => user.id !== id);
+    }
 }
