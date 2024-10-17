@@ -24,7 +24,7 @@ export class UserFormComponent implements OnInit {
 
     userLists: UserModel[] = [];
     listSkills: string[] = ['C#', 'PHP', 'Angular']
-    @Output() formSubmit = new EventEmitter<UserModel>();
+    @Output() formSubmit = new EventEmitter<any>();
 
     countries: Country[] = (jsonCountries as any).default as Country[];
 
@@ -45,7 +45,6 @@ export class UserFormComponent implements OnInit {
 
     onSubmit(form: NgForm): void {
         this.submitted = true;
-
         if (form.valid) {
             this.formSubmit.emit(this.user);
 
@@ -84,6 +83,7 @@ export class UserFormComponent implements OnInit {
     }
 
     resetForm(): void {
+        this.submitted = false;
         this.user = {
             id: '',
             name: '',

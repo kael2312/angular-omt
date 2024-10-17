@@ -14,6 +14,7 @@ export class AppComponent {
     title: string = '';
 
     onFormSubmit(user: UserModel) {
-        this.userLists.push(user);
+
     }
+
 }

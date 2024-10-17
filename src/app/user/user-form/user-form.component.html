@@ -3,7 +3,7 @@
         <label>Name</label>
         <input type="text" [(ngModel)]="user.name" name="name" placeholder="Nhap ten cua ban" class="form-control"
                required minlength="3" maxlength="18" #name="ngModel">
-        <div *ngIf="name.invalid && (name.touched || submitted)">
+        <div *ngIf="name.invalid && (name.touched || (submitted && userForm.valid))">
             <small class="text-danger" *ngIf="name.errors?.['required']">Tên là bắt buộc.</small>
             <small class="text-danger" *ngIf="name.errors?.['minlength']">Tên phải có ít nhất 3 ký tự.</small>
             <small class="text-danger" *ngIf="name.errors?.['maxlength']">Tên không được vượt quá 18 ký tự.</small>
@@ -87,3 +87,13 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<div class="mt-4">
+    <ng-container *ngIf="userLists.length > 0">
+        <app-user-list
+                (deleteUserEvent)="deleteUser($event)"
+                (editUserEvent)="editUser($event)"
+                [userLists]="userLists">
+        </app-user-list>
+    </ng-container>
+</div>
