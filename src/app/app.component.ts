@@ -58,7 +58,7 @@ export class AppComponent {
     };
 
     addUser(user: UserModel) {
-        if (user.id >= this.users[this.users.length-1].id) {
+        if (user.id > this.users[this.users.length-1].id) {
             user.id = this.users.length + 1;
             this.users.push(user);
         }
