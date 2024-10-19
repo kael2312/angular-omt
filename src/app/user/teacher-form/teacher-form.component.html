@@ -1,0 +1,7 @@
+<div class="form-group">
+  <label>Skills</label>
+  <div *ngFor="let skill of listSkills; let i = index">
+    <input type="checkbox" [(ngModel)]="selectedSkills[i]" value="{{i}}"   (change)="onSkillChange($event)"
+           name="skill{{i}}"> {{ skill }}
+  </div>
+</div>
