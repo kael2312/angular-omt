@@ -1,10 +1,43 @@
-<app-nav>
-    <app-tab id="student-form" tabTitle="Student Form">
-        <app-student-form>
-        </app-student-form>
-    </app-tab>
-    <app-tab id="teacher-form" tabTitle="Teacher Form">
-        <app-teacher-form>
-        </app-teacher-form>
-    </app-tab>
-</app-nav>
+<!--<app-nav>-->
+<!--    <app-tab id="student-form" tabTitle="Student Form">-->
+<!--        <app-student-form>-->
+<!--        </app-student-form>-->
+<!--    </app-tab>-->
+<!--    <app-tab id="teacher-form" tabTitle="Teacher Form">-->
+<!--        <app-teacher-form>-->
+<!--        </app-teacher-form>-->
+<!--    </app-tab>-->
+<!--</app-nav>-->
+
+<app-header (eventClickIsLogin)="receiveEventLogin($event)"
+            [sessionUser]="sessionUser"
+></app-header>
+
+<div *ngIf="sessionUser !== null; else noSessionUser">
+    <app-home [sessionUser]="sessionUser"></app-home>
+</div>
+
+<ng-template #noSessionUser>
+    <div *ngIf="isLogin; else noLogin">
+        <app-login (sessionUser)="receiveSessionUser($event)"></app-login>
+    </div>
+
+    <ng-template #noLogin>
+        <app-nav>
+            <app-tab id="student-form" tabTitle="Admin register">
+                <app-admin-form>
+                </app-admin-form>
+            </app-tab>
+            <app-tab id="manager-form" tabTitle="Manager register">
+                <app-manager-form>
+                </app-manager-form>
+            </app-tab>
+            <app-tab id="customer-form" tabTitle="Customer register">
+                <app-customer-form>
+                </app-customer-form>
+            </app-tab>
+        </app-nav>
+    </ng-template>
+
+</ng-template>
+

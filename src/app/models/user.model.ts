@@ -19,3 +19,17 @@ export interface TeacherModel extends UserModel {
     level: string;
     marital: string;
 }
+
+
+export interface UserRegisterModel {
+    id: string
+    name: string;
+    email: string;
+    password: string;
+    permissions: string[];
+}
+
+export interface UserLoginModel {
+    email: string;
+    password: string;
+}
