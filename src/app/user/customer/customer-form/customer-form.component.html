@@ -1,0 +1,49 @@
+<h3>Customer Form</h3>
+<div *ngIf="createdSuccess" class="alert alert-success" role="alert">
+    Tạo tài khoản thành công
+</div>
+<div *ngIf="createdFail" class="alert alert-danger" role="alert">
+    Email đã tồn tại
+</div>
+<form #userForm="ngForm" class="container mt-4" (ngSubmit)="onSubmit(userForm)">
+    <app-input-form
+            label="Name"
+            name="name"
+            [(ngModel)]="user.name"
+            placeholder="Nhập tên của bạn"
+            [required]="true"
+            [minlength]="3"
+            [maxlength]="18"
+            [submitted]="submitted"
+            requiredMessage="Nhập tên vào"
+            minlengthMessage="Tên phải có ít nhất 3 ký tự"
+            maxlengthMessage="Tên không được vượt quá 18 ký tự"
+    ></app-input-form>
+
+
+    <app-input-form
+            label="Email"
+            name="email"
+            [(ngModel)]="user.email"
+            placeholder="Nhap email cua ban"
+            [required]="true"
+            [submitted]="submitted"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            requiredMessage="Nhập tên vào"
+    ></app-input-form>
+
+    <app-input-form
+            label="Password"
+            name="password"
+            [(ngModel)]="user.password"
+            placeholder="Nhap password cua ban"
+            [required]="true"
+            [submitted]="submitted"
+            requiredMessage="Nhập password vào"
+    ></app-input-form>
+
+
+    <app-button-form type="submit" label="Submit"></app-button-form>
+</form>
+
+

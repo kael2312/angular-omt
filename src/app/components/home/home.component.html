@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div *ngIf="sessionUser.permissions.includes('admin')" class="col-3 m-2">
+            <div class="card">
+                <div class="card-body {{role}}">
+                    <h5 class="card-title">Admin</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="sessionUser.permissions.includes('manager')"  class="col-3 m-2">
+            <div class="card">
+                <div class="card-body {{role}}">
+                    <h5 class="card-title">Manager</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="sessionUser.permissions.includes('customer')" class="col-3 m-2">
+            <div class="card">
+                <div class="card-body {{role}}">
+                    <h5 class="card-title">User</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

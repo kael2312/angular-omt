@@ -1,0 +1,19 @@
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a *ngFor="let tab of tabs"
+           class="nav-item nav-link"
+           [class.active]="tab.active"
+           [id]="tab.id"
+           data-toggle="tab"
+           href="{{'#' + tab.id}}"
+           role="tab"
+           [attr.aria-controls]="tab.id"
+           [attr.aria-selected]="tab.active"
+           (click)="selectTab(tab)">
+            {{ tab.tabTitle }}
+        </a>
+    </div>
+</nav>
+<div class="tab-content">
+    <ng-content></ng-content>
+</div>
