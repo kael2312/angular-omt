@@ -1,0 +1,11 @@
+.admin:hover {
+    color: red;
+}
+
+.manager:hover {
+    color: blue;
+}
+
+.customer:hover {
+    color: green;
+}

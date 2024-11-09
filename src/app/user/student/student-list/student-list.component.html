@@ -1,0 +1,10 @@
+<h3>Danh sách người dùng:</h3>
+<ul>
+    <li *ngFor="let user of userLists">
+        <span [ngStyle]="{'color': user.gender === 'Female' ? 'red' : 'blue'}">
+            {{ user.name }}
+        </span>
+        <app-button-form classMore="btn-warning  ml-2" label="Sửa" (eventClick)="editUser(user.id)"></app-button-form>
+        <app-button-form classMore="btn-danger  ml-2" label="Xóa" (eventClick)="deleteUser(user.id)"></app-button-form>
+    </li>
+</ul>

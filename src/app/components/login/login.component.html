@@ -1,0 +1,26 @@
+<h3>Login</h3>
+<div *ngIf="loginFail" class="alert alert-danger" role="alert">
+    Đăng nhập sịt
+</div>
+<form #userForm="ngForm" class="container mt-4" (ngSubmit)="onSubmit(userForm)">
+    <app-input-form
+            label="Name"
+            name="name"
+            [(ngModel)]="userLogin.email"
+            placeholder="Nhập email của bạn"
+            [required]="true"
+            [submitted]="submitted"
+            requiredMessage="Nhập tên vào"
+    ></app-input-form>
+
+    <app-input-form
+            label="Password"
+            name="password"
+            [(ngModel)]="userLogin.password"
+            placeholder="Nhap password cua ban"
+            [required]="true"
+            [submitted]="submitted"
+            requiredMessage="Nhập pass vào"
+    ></app-input-form>
+    <app-button-form type="submit" label="Submit"></app-button-form>
+</form>

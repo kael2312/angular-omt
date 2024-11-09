@@ -1,0 +1,11 @@
+<div class="form-check">
+    <input
+            type="checkbox"
+            class="form-check-input"
+            [checked]="checked"
+            (change)="onCheckboxChange($event)"
+            [name]="name"
+            [id]="name"
+    />
+    <label [for]="name" class="form-check-label">{{ label }}</label>
+</div>

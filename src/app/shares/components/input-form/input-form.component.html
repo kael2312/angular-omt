@@ -1,0 +1,21 @@
+<div class="form-group">
+    <label>{{ label }}</label>
+    <input
+            [type]="type"
+            [(ngModel)]="model"
+            [name]="name"
+            [placeholder]="placeholder"
+            class="form-control"
+            [required]="required"
+            [pattern]="pattern"
+            [minlength]="minlength"
+            [maxlength]="maxlength"
+            #inputField="ngModel"
+    />
+    <div *ngIf="inputField.invalid && (inputField.touched || submitted)">
+        <small class="text-danger" *ngIf="inputField.errors?.['required']">{{ requiredMessage }}</small>
+        <small class="text-danger" *ngIf="inputField.errors?.['pattern']">{{ patternMessage }}</small>
+        <small class="text-danger" *ngIf="inputField.errors?.['minlength']">{{ minlengthMessage }}</small>
+        <small class="text-danger" *ngIf="inputField.errors?.['maxlength']">{{ maxlengthMessage }}</small>
+    </div>
+</div>
