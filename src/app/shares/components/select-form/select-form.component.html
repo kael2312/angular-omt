@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label>{{ label }}</label>
+    <select [(ngModel)]="model" [name]="name" class="form-control" [required]="required" #selectField="ngModel">
+        <option *ngIf="optionSelected !== ''" value="">{{ optionSelected }}</option>
+        <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+    </select>
+    <div *ngIf="selectField.invalid && (selectField.touched || submitted)">
+        <small class="text-danger" *ngIf="selectField.errors?.['required']">{{ requiredMessage }}</small>
+    </div>
+</div>

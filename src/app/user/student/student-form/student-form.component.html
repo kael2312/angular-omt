@@ -1,0 +1,121 @@
+<h3>Student Form</h3>
+
+
+<form #userForm="ngForm" class="container mt-4" (ngSubmit)="onSubmit(userForm)">
+    <app-input-form
+            label="Name"
+            name="name"
+            [(ngModel)]="user.name"
+            placeholder="Nhập tên của bạn"
+            [required]="true"
+            [minlength]="3"
+            [maxlength]="18"
+            [submitted]="submitted"
+            requiredMessage="Nhập tên vào"
+            minlengthMessage="Tên phải có ít nhất 3 ký tự"
+            maxlengthMessage="Tên không được vượt quá 18 ký tự"
+    ></app-input-form>
+
+    <app-input-form
+            label="Email"
+            name="email"
+            [(ngModel)]="user.email"
+            placeholder="Nhap email cua ban"
+            [required]="true"
+            [submitted]="submitted"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            requiredMessage="Nhập tên vào"
+            minlengthMessage="Tên phải có ít nhất 3 ký tự"
+            maxlengthMessage="Tên không được vượt quá 18 ký tự"
+    ></app-input-form>
+
+    <app-select-form
+            label="Gender"
+            name="gender"
+            [(ngModel)]="user.gender"
+            [required]="true"
+            [options]="optionsSelectGender"
+            [submitted]="submitted"
+            optionSelected="Chọn giới tính"
+    >
+    </app-select-form>
+
+    <app-input-form
+            label="Phone"
+            name="phone"
+            [(ngModel)]="user.phone"
+            placeholder="Nhap phone cua ban"
+            [required]="true"
+            [submitted]="submitted"
+            pattern="^((\+84|0)[0-9]{9})$"
+            patternMessage="Không giống số điện thoại"
+    ></app-input-form>
+
+    <app-select-form
+            label="Country"
+            name="country"
+            [(ngModel)]="user.country"
+            [required]="true"
+            [options]="optionSelectCountries"
+            [submitted]="submitted"
+            optionSelected="Chọn quốc gia"
+    >
+    </app-select-form>
+
+    <app-input-form
+            label="Address"
+            name="address"
+            [(ngModel)]="user.address"
+            placeholder="Nhap dia chi cua ban"
+            [required]="true"
+            [submitted]="submitted"
+            requiredMessage="Địa chỉ là bắt buộc"
+    ></app-input-form>
+
+
+    <div class="form-group">
+        <label>Skills</label>
+        <div *ngFor="let skill of listSkills; let i = index">
+            <app-checkbox-form
+                    [label]="skill"
+                    [checked]="user.skills.includes(i)"
+                    (checkedChange)="onSkillChange(i)"
+                    [name]="skill + i"
+            ></app-checkbox-form>
+        </div>
+    </div>
+
+    <app-select-form
+            label="Language"
+            name="language"
+            [(ngModel)]="user.language"
+            [required]="true"
+            [options]="optionSelectLanguage"
+            [submitted]="submitted"
+            optionSelected="Chọn ngoại ngữ"
+    >
+    </app-select-form>
+
+    <app-textarea-form
+            label="Description"
+            name="description"
+            placeholder="Mo ta ban than"
+            [minlength]="3"
+            [maxlength]="18"
+            [required]="true"
+            [(ngModel)]="user.description"
+            [submitted]="submitted"
+    >
+    </app-textarea-form>
+    <app-button-form type="submit" label="Submit"></app-button-form>
+</form>
+<div class="mt-4">
+    <ng-container *ngIf="userLists.length > 0">
+        <app-student-list
+                (deleteUserEvent)="deleteUser($event)"
+                (editUserEvent)="editUser($event)"
+                [userLists]="userLists">
+        </app-student-list>
+    </ng-container>
+</div>
+

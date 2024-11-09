@@ -1,0 +1,14 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+    <div *ngIf="sessionUser !== null; else noSessionUser" class="col-md-3 text-end">
+        <p>Hello: {{ sessionUser.name }}</p>
+        <button (click)="clickLogout()" type="button" class="btn btn-primary m-2">Logout</button>
+    </div>
+
+    <ng-template #noSessionUser>
+        <div class="col-md-3 text-end">
+            <button [disabled]="isLogin" (click)="clickLogin()" type="button" class="btn btn-outline-primary me-2">Login</button>
+            <button [disabled]="!isLogin" (click)="clickRegister()" type="button" class="btn btn-primary m-2">Sign-up</button>
+        </div>
+    </ng-template>
+</header>
