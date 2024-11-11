@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
     private keySaveUserLocalStorage: string = 'currentUser';
     loggedIn: boolean = false;
 
+    
     constructor(private authService: AuthService) {
         this.loggedIn = localStorage.getItem(this.keySaveUserLocalStorage) ? true : false;
     }
