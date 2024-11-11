@@ -1,29 +1,36 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { UserIdentity } from "../models/userIdentity.model";
+import { UserInfo } from "../models/userInfo.model";
 
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthService {
-    private currentUserSubject: BehaviorSubject<UserIdentity | null>;
-    public currentUser$: Observable<UserIdentity | null>
+    private currentUserSubject: BehaviorSubject<UserInfo | null>;
+    public currentUser$: Observable<UserInfo | null>
 
     private keySaveUserLocalStorage: string = 'currentUser';
 
-    private fakeUsers: UserIdentity[] = [
-        { username: 'admin', password: 'adminpass', role: 'admin' },
-        { username: 'user', password: 'userpass', role: 'user' },
-        { username: 'manager', password: 'managerpass', role: 'manager' }
+    private fakeUsers = [
+        { username: 'admin', password: '123', role: 'admin' },
+        { username: 'user', password: '456', role: 'user' },
+        { username: 'manager', password: '789', role: 'manager' }
     ];
 
     constructor() {
         const currentUserJson = localStorage.getItem(this.keySaveUserLocalStorage);
-        const currentUser: UserIdentity | null = currentUserJson ? JSON.parse(currentUserJson) : null;
-        this.currentUserSubject = new BehaviorSubject<UserIdentity | null>(currentUser);
+        const currentUser: UserInfo | null = currentUserJson ? JSON.parse(currentUserJson) : null;
+        this.currentUserSubject = new BehaviorSubject<UserInfo | null>(currentUser);
         this.currentUser$ = this.currentUserSubject.asObservable();
     }
 
     login(username: string, password: string): boolean {
         const user = this.fakeUsers.find(x => x.username === username && x.password === password);
-        if(user){
+        if (user) {
+            const userInfo: UserInfo = {
+                username: user.username,
+                role: user.role
+            }
             localStorage.setItem(this.keySaveUserLocalStorage, JSON.stringify(user));
             this.currentUserSubject.next(user);
             return true;
@@ -32,12 +39,8 @@ export class AuthService {
         return false;
     }
 
-    logout(){
+    logout() {
         localStorage.removeItem(this.keySaveUserLocalStorage);
         this.currentUserSubject.next(null);
-    }
-
-    getCurrentUser(): UserIdentity | null {
-        return this.currentUserSubject.value;
     }
 }

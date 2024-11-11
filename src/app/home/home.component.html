@@ -1,0 +1,40 @@
+<div class="container mt-5" *ngIf="currentUser">
+    <div class="row">
+      <div class="col-md-4" *ngIf="currentUser.role === 'admin'">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Admin Data</h5>
+            <ul>
+              <li>Lorem ipsum.</li>
+              <li>Odio, odit?</li>
+              <li>Atque, hic!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="currentUser.role === 'user' || currentUser.role === 'admin' || currentUser.role === 'manager'">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">User Data</h5>
+            <ul>
+              <li>Lorem ipsum.</li>
+              <li>Odio, odit?</li>
+              <li>Atque, hic!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="currentUser.role === 'manager' || currentUser.role === 'admin'">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Manager Data</h5>
+            <ul>
+              <li>Lorem ipsum.</li>
+              <li>Odio, odit?</li>
+              <li>Atque, hic!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
