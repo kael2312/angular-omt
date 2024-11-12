@@ -1,0 +1,10 @@
+<h3>Danh sách học sinh:</h3>
+<ul>
+  <li *ngFor="let student of studentLists">
+           <span [ngStyle]="{'color': getGenderColor(student.gender)}">
+            {{ student.name }}
+        </span>
+    <button type="button" class="btn btn-warning btn-sm ml-2" (click)="editStudent(student.id)">Sửa</button>
+    <button type="button" class="btn btn-danger btn-sm ml-2" (click)="deleteStudent(student.id)">Xóa</button>
+  </li>
+</ul>

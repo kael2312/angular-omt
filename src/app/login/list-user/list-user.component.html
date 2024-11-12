@@ -1,0 +1,35 @@
+<div class="detail" [ngClass]="{
+  'admin-hover': authService.hasAccess('admin'),
+  'manager-hover': authService.hasAccess('manager'),
+  'user-hover': authService.hasAccess('user')
+}">
+  <!-- Admin Data -->
+  <div class="info" *ngIf="authService.hasAccess('admin')">
+    <p>Admin data</p>
+    <ul>
+      <li>Lorem ipsum</li>
+      <li>Odio, odit?</li>
+      <li>Atque, hic!</li>
+    </ul>
+  </div>
+
+  <!-- Manager Data -->
+  <div class="info" *ngIf="authService.hasAccess('manager')">
+    <p>Manager Data</p>
+    <ul>
+      <li>Lorem ipsum</li>
+      <li>Odio, odit?</li>
+      <li>Atque, hic!</li>
+    </ul>
+  </div>
+
+  <!-- User Data -->
+  <div class="info" *ngIf="authService.hasAccess('user')">
+    <p>User Data</p>
+    <ul>
+      <li>Lorem ipsum</li>
+      <li>Odio, odit?</li>
+      <li>Atque, hic!</li>
+    </ul>
+  </div>
+</div>

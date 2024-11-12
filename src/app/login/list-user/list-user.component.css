@@ -1,0 +1,25 @@
+.detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.info {
+  border: 1px solid;
+  padding: 5px;
+  width: 200px;
+}
+
+
+.manager-hover li:hover {
+  color: yellow !important;
+}
+
+.admin-hover li:hover {
+  color: red !important;
+}
+
+.user-hover li:hover {
+  color: blue;
+}
