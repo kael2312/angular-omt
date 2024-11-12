@@ -1,0 +1,13 @@
+<div style="border: 1px solid;padding: 5px;">
+  <h4>Manager Login</h4>
+  <div style="padding: 5px">
+    <input [(ngModel)]="username" placeholder="Username">
+  </div>
+  <div style="padding: 5px">
+    <input [(ngModel)]="password" placeholder="Password" type="password">
+  </div>
+  <div style="padding: 5px">
+    <button (click)="login()">Login</button>
+  </div>
+  <div *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>

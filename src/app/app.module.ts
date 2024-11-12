@@ -14,6 +14,12 @@ import {TabDirective} from "./form/student/tab/tab.directive";
 import {TabContainerComponent} from './form/student/tab-container/tab-container.component';
 import { StudentListComponent } from './form/student/student-list/student-list.component';
 import { TeacherListComponent } from './form/student/teacher-list/teacher-list.component';
+import { AdminComponent } from './login/admin/admin.component';
+import { UserComponent } from './login/user/user.component';
+import { ManagerComponent } from './login/manager/manager.component';
+import { HeaderComponent } from './login/header/header.component';
+import { AccessDirective } from './login/directive/access.directive';
+import { ListUserComponent } from './login/list-user/list-user.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +30,12 @@ import { TeacherListComponent } from './form/student/teacher-list/teacher-list.c
     TabComponent,
     TabDirective,
     TabContainerComponent,
+    AdminComponent,
+    UserComponent,
+    ManagerComponent,
+    HeaderComponent,
+    AccessDirective,
+    ListUserComponent,
   ],
   imports: [
     BrowserModule,
